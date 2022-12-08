@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "web3": "^1.8.1",
+    "yarn": "^1.22.19"
+  },
+  "name": "zWallet",
+  "version": "1.0.0",
+  "description": "A eth Wallet",
+  "main": "main.js",
+  "repository": "zWallet",
+  "author": "Zackyyg <zackyyyy.g@gmail.com>",
+  "license": "MIT"
+}
