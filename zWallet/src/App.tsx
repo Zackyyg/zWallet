@@ -1,26 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import AddKeyButton from "./components/AddKeyButton";
+import "./components/AddKeyButton.css";
+import AddKeyForm from "./components/AddKeyForm";
+import KeyItem from "./components/KeyItem";
+import keys from "./keys";
+
+type key = {
+  name: String;
+  type: String;
+};
 
 function App() {
+  const [show, setShow] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="parent">
+
+      <div className="child1">
+
+        <div className="KeyListMenu">
+          <ul className="Menu">
+            {keys.map((key) => (
+              <div onClick={() => openKeyView(key)}>
+                <KeyItem name={key.name} type={key.type} />
+              </div>
+            ))}
+          </ul>
+        </div>
+
+        <div onClick={() => setShow(true)} className="buttonContainer">
+          <AddKeyButton />
+        </div>
+      </div>
+
+      <div className="child2">
+        <div className="KeyView">select a key</div>
+      </div>
+
+      {show ? (
+        <div className="formBackground">
+          {" "}
+          <button className="closeButton" onClick={() => setShow(false)}>
+            close
+          </button>
+          <AddKeyForm />{" "}
+        </div>
+      ) : null}
     </div>
   );
 }
+
+function openKeyView(key: key) {}
 
 export default App;

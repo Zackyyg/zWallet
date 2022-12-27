@@ -1,0 +1,12 @@
+.KeyItem {
+    box-sizing: border-box;
+    border-bottom:solid black 1px;
+    width: 100%;
+    padding: 0px;
+    margin: 0;
+}
+
+.KeyItem:hover {
+    background-color: rgb(162, 162, 162);
+}
+
