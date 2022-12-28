@@ -1,27 +1,27 @@
 import { useState } from "react";
 import "./App.css";
-import AddKeyButton from "./components/AddKeyButton";
-import "./components/AddKeyButton.css";
-import AddKeyForm from "./components/AddKeyForm";
-import KeyItem from "./components/KeyItem";
-import keys from "./keys";
-
-type key = {
-  name: String;
-  type: String;
-};
+import AddButton from "./components/AddButton/AddButton";
+import AddKeyForm from "./components/AddKeyForm/AddKeyForm";
+import KeyItem from "./components/KeyItem/KeyItem";
+import SelectedKeyView from "./components/SelectedKeyView/SelectedKeyView";
+import keys from "./global/keys";
 
 function App() {
   const [show, setShow] = useState(false);
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
   return (
     <div className="parent">
-
       <div className="child1">
-
-        <div className="KeyListMenu">
-          <ul className="Menu">
+        <div className="keyListMenu">
+          <ul className="menu">
             {keys.map((key) => (
-              <div onClick={() => openKeyView(key)}>
+              <div
+                onClick={() => {
+                  setName(String(key.name));
+                  setType(String(key.type));
+                }}
+              >
                 <KeyItem name={key.name} type={key.type} />
               </div>
             ))}
@@ -29,12 +29,12 @@ function App() {
         </div>
 
         <div onClick={() => setShow(true)} className="buttonContainer">
-          <AddKeyButton />
+          <AddButton />
         </div>
       </div>
 
       <div className="child2">
-        <div className="KeyView">select a key</div>
+        <SelectedKeyView name={name} type={type} />
       </div>
 
       {show ? (
@@ -49,7 +49,5 @@ function App() {
     </div>
   );
 }
-
-function openKeyView(key: key) {}
 
 export default App;
