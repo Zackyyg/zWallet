@@ -1,3 +1,4 @@
 node_modules/
 .tool-versions
 yarn.lock
+todo.txt
