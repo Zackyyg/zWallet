@@ -1,0 +1,14 @@
+.keyItem {
+  box-sizing: border-box;
+  border-bottom: solid black 1px;
+  width: 100%;
+  height: 110%;
+}
+
+.keyItem:hover {
+  background-color: rgb(162, 162, 162);
+}
+
+.keyData {
+  margin-top: 0px;
+}
