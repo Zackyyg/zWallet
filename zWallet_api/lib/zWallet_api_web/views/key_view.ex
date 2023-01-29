@@ -3,13 +3,11 @@ defmodule ZWalletApiWeb.KeyView do
   alias ZWalletApiWeb.KeyView
 
   def render("index.json", %{keys: keys}) do
-    %{data: render_many(keys, KeyView, "key.json")}
+    render_many(keys, KeyView, "key.json")
   end
 
   def render("show.json", %{key: key}) do
-    IO.inspect(ETH.get_balance!(key.value))
-    IO.inspect("heel")
-    %{data: render_one(key, KeyView, "key.json") |> Map.put("amount", ETH.get_balance!(key.value))}
+    render_one(key, KeyView, "key.json") |> Map.put("amount", ETH.get_balance!(key.value))
   end
 
   def render("key.json", %{key: key}) do

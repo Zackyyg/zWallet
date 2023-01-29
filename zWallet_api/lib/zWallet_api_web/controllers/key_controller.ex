@@ -23,7 +23,6 @@ defmodule ZWalletApiWeb.KeyController do
 
   def create_new_key(conn, %{"key" => key_params}) do
     wallet = ETH.Wallet.create
-    IO.inspect(wallet)
     key_params = Map.put(key_params, "value", wallet.eth_address)
     with {:ok, %Key{} = key} <- Keys.create_key(key_params) do
       conn

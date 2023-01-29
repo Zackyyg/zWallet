@@ -22,21 +22,21 @@ defmodule ZWalletApiWeb.Router do
 
   scope "/update_key", ZWalletApiWeb do
     pipe_through :api
-    post "/:id", KeyController, :update
+    put "/:id", KeyController, :update
   end
 
   scope "/get_keys", ZWalletApiWeb do
     pipe_through :api
-    post "/", KeyController, :index
+    get "/", KeyController, :index
   end
 
   scope "/get_key_data", ZWalletApiWeb do
     pipe_through :api
-    post "/:id", KeyController, :show
+    get "/:id", KeyController, :show
   end
 
   scope "/delete_key", ZWalletApiWeb do
     pipe_through :api
-    post "/:id", KeyController, :delete
+    delete "/:id", KeyController, :delete
   end
 end
