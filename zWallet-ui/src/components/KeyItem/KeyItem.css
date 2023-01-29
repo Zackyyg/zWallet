@@ -2,13 +2,17 @@
   box-sizing: border-box;
   border-bottom: solid black 1px;
   width: 100%;
-  height: 110%;
+  height: 8vh;
 }
 
-.keyItem:hover {
+.keyData:hover {
   background-color: rgb(162, 162, 162);
 }
 
 .keyData {
-  margin-top: 0px;
+  margin: 0px;
+  height: 8vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

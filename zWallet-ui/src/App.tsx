@@ -1,48 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getKeys, Key } from "./API";
 import "./App.css";
 import AddButton from "./components/AddButton/AddButton";
 import AddKeyForm from "./components/AddKeyForm/AddKeyForm";
 import KeyItem from "./components/KeyItem/KeyItem";
 import SelectedKeyView from "./components/SelectedKeyView/SelectedKeyView";
-declare var window: { localStorage: Storage };
-
-type key = {
-  id: number
-  name: String;
-  type: String;
-}
-
-function getKeys(): key[] {
-  const value: string | null = window.localStorage.getItem('keys');
-  if (value == null) {
-    window.localStorage.setItem('keys', "[]");
-    return []
-  } else {
-    return JSON.parse(value)
-  }
-}
 
 function App() {
   const [show, setShow] = useState(false);
-  const [name, setName] = useState("");
-  const [type, setType] = useState("");
-  const [keys, setKeys] = useState(getKeys());
+  const [id, setId] = useState(0);
+  const [keys, setKeys] = useState<Key[]>();
 
+  useEffect(() => {
+    getKeys().then( res => {
+      setKeys(res.data)
+      console.log(res.data)
+    })
+  }, [setKeys])
   return (
     <div className="parent">
       <div className="child1">
         <div className="keyListMenu">
           <ul className="menu">
-            {keys.map((key) => (
+            {keys ? keys.map((key) => (
               <div
                 onClick={() => {
-                  setName(String(key.name));
-                  setType(String(key.type));
+                  setId(key.id);
                 }}
               >
-                <KeyItem name={key.name} type={key.type} />
+                <KeyItem name={key.name}/>
               </div>
-            ))}
+            )): null}
           </ul>
         </div>
 
@@ -52,7 +40,7 @@ function App() {
       </div>
 
       <div className="child2">
-        <SelectedKeyView name={name} type={type} />
+        <SelectedKeyView id={id} keys={keys ? keys: []} setKeys={setKeys}/>
       </div>
 
       {show ? (
@@ -61,7 +49,7 @@ function App() {
           <button className="closeButton" onClick={() => setShow(false)}>
             close
           </button>
-          <AddKeyForm keys={keys} setKeys={setKeys}/>{" "}
+          <AddKeyForm keys={keys ? keys: []} setKeys={setKeys}/>{" "}
         </div>
       ) : null}
     </div>

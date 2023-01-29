@@ -1,36 +1,40 @@
 /* eslint-disable */
 
 import React from "react";
+import { createKey, createKeyNew, Key } from "../../API";
 import "./AddKeyForm.css";
-declare var window: { localStorage: Storage };
-
-type key = {
-  id: number
-  name: String;
-  type: String;
-}
-
 
 type Props = {
-  keys: key[],
-  setKeys: React.Dispatch<React.SetStateAction<key[]>>,
+  keys: Key[],
+  setKeys: React.Dispatch<React.SetStateAction<Key[] | undefined>>
 };
 function AddKeyForm({ keys, setKeys }: Props) {
   const [name, setName] = React.useState("");
-  const [type, setType] = React.useState("");
+  const [value, setValue] = React.useState("");
   const [show, setShow] = React.useState(false);
 
   const addKey = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    keys.push({
-      id: keys.length+1,
-      name: name,
-      type: type,
+    value? createKey(name, value).then(res => {
+      keys.push({
+        id: res.data.id,
+        name: res.data.name,
+        type: res.data.type,
+        value: res.data.value,
+      });
+      setKeys(keys)
+    }) : createKeyNew(name).then(res => {
+      keys.push({
+        id: res.data.id,
+        name: res.data.name,
+        type: res.data.type,
+        value: res.data.value,
+      });
+      setKeys(keys)
     });
 
-    window.localStorage.setItem('keys', JSON.stringify(keys));
-    setKeys(keys)
+
   };
   return (
     <div className="keyFormDiv">
@@ -46,12 +50,12 @@ function AddKeyForm({ keys, setKeys }: Props) {
           />
         </div>
         <div>
-          <label>Key Type</label>
+          <label>Key value</label>
           <input
             type="text"
-            id="type"
-            value={type}
-            onChange={(event) => setType(event.target.value)}
+            id="value"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
           />
         </div>
         <div>

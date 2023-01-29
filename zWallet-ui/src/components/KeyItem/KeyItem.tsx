@@ -2,13 +2,13 @@ import "./KeyItem.css";
 
 type Props = {
   name: String;
-  type: String;
 };
-function KeyItem({ name, type }: Props) {
+function KeyItem({ name }: Props) {
   return (
     <div className="keyItem">
-      <p className="keyData">Name: {name}</p>
-      <p className="keyData">Type: {type}</p>
+      <div className="keyData">
+        <p>{name}</p>
+      </div>
     </div>
   );
 }
